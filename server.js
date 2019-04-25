@@ -21,7 +21,7 @@ app.use(function validateBearerToken(req, res, next) {
 });
 function handleGetMovies(req, res) {
   let results = [...MOVIES];
- 
+
   if (req.query.genre) {
     results = results.filter(movie =>
       movie.genre.toLowerCase().includes(req.query.genre.toLowerCase())
@@ -44,14 +44,14 @@ function handleGetMovies(req, res) {
   }
 
   if (req.query.avg_vote) {
-      const numVote= parseFloat(req.query.avg_vote)
-      console.log(`numVote is`, numVote)
-      if(numVote < 0 || numVote >10 ){
-            
-        return res.status(400)
-                  .json({message:`The average vote is out of bounds`})
-      }
-      
+    const numVote = parseFloat(req.query.avg_vote);
+    console.log(`numVote is`, numVote);
+    if (numVote < 0 || numVote > 10) {
+      return res
+        .status(400)
+        .json({ message: `The average vote is out of bounds` });
+    }
+
     results = results.filter(movie => {
       return movie.avg_vote >= req.query.avg_vote;
     });
